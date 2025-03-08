@@ -158,6 +158,7 @@ int main(void)
 	printf("Solution: ");
 	display_all_view(all_view);
 	ft_free_tab(grid, N);
+	ft_free_arr(all_view);
 
 	return (0);
 }
