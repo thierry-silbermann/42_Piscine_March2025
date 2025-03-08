@@ -22,6 +22,21 @@ int     **ft_allocate_mem_tab(int size)
         return (tab);
 }
 
+int	*ft_allocate_mem_arr(int size)
+{
+	int	i;
+	int	*arr;
+
+	i = 0;
+	arr = malloc(size * sizeof(int));
+	while (i < size)
+	{
+		arr[i] = 0;
+		i++;
+	}
+	return (arr);
+}
+
 void    ft_free_tab(int **tab, int size)
 {
         int     i;
@@ -32,5 +47,10 @@ void    ft_free_tab(int **tab, int size)
                 i++;
         }
         free(tab);
+}
+
+void ft_free_arr(int *arr)
+{
+	free(arr);
 }
 
