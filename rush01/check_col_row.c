@@ -1,13 +1,7 @@
 #include <stdio.h>
 
-
 int     **ft_allocate_mem_tab(int size);
 void    ft_free_tab(int **tab, int size);
-
-#define MAX_N 9
-
-int N;
-int grid[MAX_N][MAX_N];
 
 // Function to count visible buildings from a given direction
 int	count_visible(int *arr, int size)
@@ -31,17 +25,17 @@ int	count_visible(int *arr, int size)
 	return (count);
 }
 
-void	print_views()
+void	print_views(int **grid, int N)
 {
-	int	top_views[MAX_N];
-	int	bottom_views[MAX_N];
-	int	left_views[MAX_N];
-	int	right_views[MAX_N];
+	int	top_views[N];
+	int	bottom_views[N];
+	int	left_views[N];
+	int	right_views[N];
 
 	// Compute top and bottom views for columns
 	for (int j = 0; j < N; j++)
 	{
-		int column[MAX_N], reversed_column[MAX_N];
+		int column[N], reversed_column[N];
 		for (int i = 0; i < N; i++)
 		{
 			column[i] = grid[i][j];            // Normal column
@@ -54,7 +48,7 @@ void	print_views()
 	// Compute left and right views for rows
 	for (int i = 0; i < N; i++) 
 	{
-		int reversed_row[MAX_N];
+		int reversed_row[N];
 		for (int j = 0; j < N; j++)
 		{
 			reversed_row[j] = grid[i][N - j - 1];  // Reverse row
@@ -111,6 +105,9 @@ void	print_views()
 
 int main(void)
 {
+	int	**grid;
+	int	N;
+
 	printf("Enter grid size (1-9): ");
 	scanf("%d", &N);
 
@@ -120,6 +117,7 @@ int main(void)
 		return 1;
 	}
 
+	grid = ft_allocate_mem_tab(N);
 	printf("Enter %dx%d grid values:\n", N, N);
 	for (int i = 0; i < N; i++)
 	{
@@ -129,7 +127,8 @@ int main(void)
 		}
 	}
 
-	print_views();
+	print_views(grid, N);
+	ft_free_tab(grid, N);
 
 	return (0);
 }
