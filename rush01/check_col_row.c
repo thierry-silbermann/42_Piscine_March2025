@@ -4,6 +4,7 @@ int	*ft_allocate_mem_arr(int size);
 int     **ft_allocate_mem_tab(int size);
 void	ft_free_arr(int *arr);
 void    ft_free_tab(int **tab, int size);
+int     **exampleN4(int **all_view, int *size);
 
 // Function to count visible buildings from a given direction
 int	count_visible(int *arr, int size)
@@ -53,7 +54,7 @@ void	print_views(int **grid, int *all_view, int N)
 		top_views[j] = count_visible(column, N);
 		bottom_views[j] = count_visible(reversed_column, N);
 		all_view[j] = count_visible(column, N);
-		all_view[4 + j] = count_visible(reversed_column, N);
+		all_view[N + j] = count_visible(reversed_column, N);
 	}
 
 	// Compute left and right views for rows
@@ -66,8 +67,8 @@ void	print_views(int **grid, int *all_view, int N)
 		}
 		left_views[i] = count_visible(grid[i], N);
 		right_views[i] = count_visible(reversed_row, N);
-		all_view[8 + i] = count_visible(grid[i], N);
-		all_view[12 + i] = count_visible(reversed_row, N);
+		all_view[2 * N + i] = count_visible(grid[i], N);
+		all_view[3 * N + i] = count_visible(reversed_row, N);
 	}
 
 	//////////////////////////////////////////////////////////
@@ -116,17 +117,43 @@ void	print_views(int **grid, int *all_view, int N)
 	printf("\n");
 }
 
-void	display_all_view(int *all_view)
+void	display_all_view(int *all_view, int N)
 {
 	int	i;
 
 	i = 0;
-	while (i < 16)
+	while (i < 4 * N)
 	{
 		printf("%d ", all_view[i]);
 		i++;
 	}
 	printf("\n");
+}
+
+int	**manual_grid(int **all_view, int *size)
+{
+	int	**grid;
+	int	N;
+
+	N = 0;
+        printf("Enter grid size (1-9): ");
+        scanf("%d", &N);
+        if (N < 1 || N > 9)
+        {       
+                printf("Invalid size.\n");
+        }
+        grid = ft_allocate_mem_tab(N);
+        printf("Enter %dx%d grid values:\n", N, N);
+        for (int i = 0; i < N; i++)
+        {
+                for (int j = 0; j < N; j++)
+                {
+                        scanf("%d", &grid[i][j]);
+		}
+	}
+	*size = N;
+	*all_view = ft_allocate_mem_arr(N * 4);
+	return (grid);
 }
 
 int main(void)
@@ -135,28 +162,12 @@ int main(void)
 	int	N;
 	int	*all_view;
 
-	printf("Enter grid size (1-9): ");
-	scanf("%d", &N);
-
-	if (N < 1 || N > 9)
-	{
-		printf("Invalid size.\n");
-		return 1;
-	}
-	all_view = ft_allocate_mem_arr(N * 4);
-	grid = ft_allocate_mem_tab(N);
-	printf("Enter %dx%d grid values:\n", N, N);
-	for (int i = 0; i < N; i++)
-	{
-		for (int j = 0; j < N; j++)
-		{
-			scanf("%d", &grid[i][j]);
-		}
-	}
-
+	N = 0;
+	//grid = exampleN4(&all_view, &N);
+	grid = manual_grid(&all_view, &N);
 	print_views(grid, all_view, N);
 	printf("Solution: ");
-	display_all_view(all_view);
+	display_all_view(all_view, N);
 	ft_free_tab(grid, N);
 	ft_free_arr(all_view);
 
