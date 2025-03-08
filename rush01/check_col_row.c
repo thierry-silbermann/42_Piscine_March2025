@@ -53,7 +53,7 @@ void	print_views(int **grid, int *all_view, int N)
 		top_views[j] = count_visible(column, N);
 		bottom_views[j] = count_visible(reversed_column, N);
 		all_view[j] = count_visible(column, N);
-		all_view[4 + j] = count_visible(column, N);
+		all_view[4 + j] = count_visible(reversed_column, N);
 	}
 
 	// Compute left and right views for rows
@@ -116,6 +116,19 @@ void	print_views(int **grid, int *all_view, int N)
 	printf("\n");
 }
 
+void	display_all_view(int *all_view)
+{
+	int	i;
+
+	i = 0;
+	while (i < 16)
+	{
+		printf("%d ", all_view[i]);
+		i++;
+	}
+	printf("\n");
+}
+
 int main(void)
 {
 	int	**grid;
@@ -142,6 +155,8 @@ int main(void)
 	}
 
 	print_views(grid, all_view, N);
+	printf("Solution: ");
+	display_all_view(all_view);
 	ft_free_tab(grid, N);
 
 	return (0);
