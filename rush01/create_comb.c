@@ -47,7 +47,7 @@ void generate_latin_square(int **grid, int row, int col, int N)
 	int	next_col;
 
 	if (row == N) {
-		print_grid(grid, N);
+		print_grid(grid, N); // Replace this with the check 
 		return;
 	}
 	next_row = (col == N - 1) ? row + 1 : row;

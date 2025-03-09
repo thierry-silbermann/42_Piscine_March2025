@@ -1,3 +1,9 @@
+# Parse input
+
+gcc -Wall -Wextra -Werror parse_input.c create_grid.c 
+./a.out  "4 3 2 1 1 2 2 2 4 3 2 1 1 2 2 2" | cat -e
+
+
 # Check solution to a valid grid
 
 check_col_row.c
