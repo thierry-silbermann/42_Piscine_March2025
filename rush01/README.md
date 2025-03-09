@@ -17,3 +17,17 @@ gcc -Wall -Wextra -Werror create_comb.c create_grid.c
 ./a.out
 
 > Enter a N (between 1 and 9 included) // Never tried above 6 as it might take time
+
+
+
+---------------------------------------
+
+
+# Algorithm execution
+
+- Parse input to know the size of N we need to execute
+- Generate all valid combinations of Latin Square of size N
+	- For each valid combination, create the rules 
+	- Check for if the current rule matches the input rule
+	- If yes, print the corresponding grid
+- If no match, print "Error"

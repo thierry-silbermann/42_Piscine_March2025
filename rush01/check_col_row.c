@@ -77,7 +77,8 @@ void	print_views(int **grid, int *all_view, int N)
 	printf("    ");
 	for (int j = 0; j < N; j++)
 	{
-		printf("%d ", top_views[j]);
+		//printf("%d ", top_views[j]);
+		printf("%d ", all_view[j]);
 	}
 	printf("\n");
 
@@ -92,12 +93,14 @@ void	print_views(int **grid, int *all_view, int N)
 	// Print grid with row views
 	for (int i = 0; i < N; i++)
 	{
-		printf("%d | ", left_views[i]);
+		//printf("%d | ", left_views[i]);
+		printf("%d | ", all_view[2 * N + i]);
 		for (int j = 0; j < N; j++)
 		{
 			printf("%d ", grid[i][j]);
 		}
-		printf("| %d\n", right_views[i]);
+		//printf("| %d\n", right_views[i]);
+		printf("| %d\n", all_view[3 * N + i]);
 	}
 
 	// Print separator
@@ -112,7 +115,8 @@ void	print_views(int **grid, int *all_view, int N)
 	printf("    ");
 	for (int j = 0; j < N; j++)
 	{
-		printf("%d ", bottom_views[j]);
+		//printf("%d ", bottom_views[j]);
+		printf("%d ", all_view[N + j]);
 	}
 	printf("\n");
 }
