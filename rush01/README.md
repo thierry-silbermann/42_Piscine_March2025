@@ -6,16 +6,14 @@ gcc -Wall -Wextra -Werror parse_input.c create_grid.c
 
 # Check solution to a valid grid
 
-check_col_row.c
-create_grid.c
-examples.c
 gcc -Wall -Wextra -Werror check_col_row.c create_grid.c examples.c
+./a.out
 
 In the main, you can either use the example line or the manual line, 
 
-
 # Create all valid grid for N
 
-create_comb.c
 gcc -Wall -Wextra -Werror create_comb.c create_grid.c
-> Enter a N (between 1 and 9 included)
+./a.out
+
+> Enter a N (between 1 and 9 included) // Never tried above 6 as it might take time
