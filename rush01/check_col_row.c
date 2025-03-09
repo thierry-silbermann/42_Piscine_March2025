@@ -1,10 +1,22 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   check_col_row.c                                    :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: tsilberm <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/03/09 11:49:59 by tsilberm          #+#    #+#             */
+/*   Updated: 2025/03/09 15:09:41 by tsilberm         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include <stdio.h>
 
 int	*ft_allocate_mem_arr(int size);
-int     **ft_allocate_mem_tab(int size);
+int	**ft_allocate_mem_tab(int size);
 void	ft_free_arr(int *arr);
-void    ft_free_tab(int **tab, int size);
-int     **exampleN4(int **all_view, int *size);
+void	ft_free_tab(int **tab, int size);
+void	display_all_view(int *all_view, int size);
 
 // Function to count visible buildings from a given direction
 int	count_visible(int *arr, int size)
@@ -28,152 +40,49 @@ int	count_visible(int *arr, int size)
 	return (count);
 }
 
-void	print_views(int **grid, int *all_view, int N)
-{
-	/* 
-		./rush-01 "col1up col2up col3up col4up 
-			col1down col2down col3down col4down 
-			row1left row2left row3left row4left 
-			row1right row2right row3right row4right"
-	*/
-	int	top_views[N];
-	int	bottom_views[N];
-	int	left_views[N];
-	int	right_views[N];
-	//int	all_view[N*4];   // Condensed view of top/bottom/left/right
-
-	// Compute top and bottom views for columns
-	for (int j = 0; j < N; j++)
-	{
-		int column[N], reversed_column[N];
-		for (int i = 0; i < N; i++)
-		{
-			column[i] = grid[i][j];            // Normal column
-			reversed_column[i] = grid[N - i - 1][j];  // Reverse column
-		}
-		top_views[j] = count_visible(column, N);
-		bottom_views[j] = count_visible(reversed_column, N);
-		all_view[j] = count_visible(column, N);
-		all_view[N + j] = count_visible(reversed_column, N);
-	}
-
-	// Compute left and right views for rows
-	for (int i = 0; i < N; i++) 
-	{
-		int reversed_row[N];
-		for (int j = 0; j < N; j++)
-		{
-			reversed_row[j] = grid[i][N - j - 1];  // Reverse row
-		}
-		left_views[i] = count_visible(grid[i], N);
-		right_views[i] = count_visible(reversed_row, N);
-		all_view[2 * N + i] = count_visible(grid[i], N);
-		all_view[3 * N + i] = count_visible(reversed_row, N);
-	}
-
-	//////////////////////////////////////////////////////////
-
-	// Print top views (aligned)
-	printf("    ");
-	for (int j = 0; j < N; j++)
-	{
-		//printf("%d ", top_views[j]);
-		printf("%d ", all_view[j]);
-	}
-	printf("\n");
-
-	// Print separator
-	printf("    ");
-	for (int j = 0; j < N; j++)
-	{
-		printf("--");
-	}
-	printf("\n");
-
-	// Print grid with row views
-	for (int i = 0; i < N; i++)
-	{
-		//printf("%d | ", left_views[i]);
-		printf("%d | ", all_view[2 * N + i]);
-		for (int j = 0; j < N; j++)
-		{
-			printf("%d ", grid[i][j]);
-		}
-		//printf("| %d\n", right_views[i]);
-		printf("| %d\n", all_view[3 * N + i]);
-	}
-
-	// Print separator
-	printf("    ");
-	for (int j = 0; j < N; j++)
-	{
-		printf("--");
-	}
-	printf("\n");
-
-	// Print bottom views (aligned)
-	printf("    ");
-	for (int j = 0; j < N; j++)
-	{
-		//printf("%d ", bottom_views[j]);
-		printf("%d ", all_view[N + j]);
-	}
-	printf("\n");
-}
-
-void	display_all_view(int *all_view, int N)
+void	print_views_col(int **grid, int *all_view, int size)
 {
 	int	i;
+	int	j;
+	int	*column;
+	int	*reversed_column;
+
+        j = 0;
+        column = ft_allocate_mem_arr(size);
+        reversed_column = ft_allocate_mem_arr(size);
+        while (j < size)
+        {
+                i = 0;
+                while (i < size)
+                {
+                        column[i] = grid[i][j];
+                        reversed_column[i] = grid[size - i - 1][j];
+                        i++;
+                }
+                all_view[j] = count_visible(column, size);
+                all_view[size + j] = count_visible(reversed_column, size);
+                j++;
+        }
+}
+
+void	print_views_row(int **grid, int *all_view, int size)
+{
+	int	i;
+	int	j;
+	int	*reversed_row;
 
 	i = 0;
-	while (i < 4 * N)
+	reversed_row = ft_allocate_mem_arr(size);
+	while (i < size)
 	{
-		printf("%d ", all_view[i]);
+		j = 0;
+		while (j < size)
+		{
+			reversed_row[j] = grid[i][size - j - 1];
+			j++;
+		}
+		all_view[2 * size + i] = count_visible(grid[i], size);
+		all_view[3 * size + i] = count_visible(reversed_row, size);
 		i++;
 	}
-	printf("\n");
-}
-
-int	**manual_grid(int **all_view, int *size)
-{
-	int	**grid;
-	int	N;
-
-	N = 0;
-        printf("Enter grid size (1-9): ");
-        scanf("%d", &N);
-        if (N < 1 || N > 9)
-        {       
-                printf("Invalid size.\n");
-        }
-        grid = ft_allocate_mem_tab(N);
-        printf("Enter %dx%d grid values:\n", N, N);
-        for (int i = 0; i < N; i++)
-        {
-                for (int j = 0; j < N; j++)
-                {
-                        scanf("%d", &grid[i][j]);
-		}
-	}
-	*size = N;
-	*all_view = ft_allocate_mem_arr(N * 4);
-	return (grid);
-}
-
-int main(void)
-{
-	int	**grid;
-	int	N;
-	int	*all_view;
-
-	N = 0;
-	//grid = exampleN4(&all_view, &N);
-	grid = manual_grid(&all_view, &N);
-	print_views(grid, all_view, N);
-	printf("Solution: ");
-	display_all_view(all_view, N);
-	ft_free_tab(grid, N);
-	ft_free_arr(all_view);
-
-	return (0);
 }
