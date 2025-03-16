@@ -1,8 +1,9 @@
 #include "ft_header.h"
 
-// Function to convert a number (char *) into words
-void convertNumberToWords(char *numStr, BigNumberDictionaryEntry *dict, int dictSize) {
-    if (compareBigNumbers(numStr, "0") == 0) {
+void convertNumberToWords(char *numStr, BigNumberDictionaryEntry *dict, int dictSize)
+{
+    if (compareBigNumbers(numStr, "0") == 0)
+    {
         write(1, "zero\n", 5);
         return;
     }
@@ -19,16 +20,18 @@ void convertNumberToWords(char *numStr, BigNumberDictionaryEntry *dict, int dict
         int multiplier = divideBigNumber(numStr, atoi(floor->number), &remainder);
 
         // Special case for 11-19 (teen numbers)
-        if (compareBigNumbers(floor->number, "10") >= 0 && compareBigNumbers(floor->number, "20") < 0) {
+        if (compareBigNumbers(floor->number, "10") >= 0 && compareBigNumbers(floor->number, "20") < 0)
+        {
             if (!firstWord) write(1, " ", 1);
             write(1, floor->name, str_len(floor->name));
             firstWord = 0;
             remainder = 0; // No further processing needed for teen numbers
         } 
         else {
-            // If it's ≥ 100, we need to add a multiplier (e.g., "four hundred")
-            if (compareBigNumbers(floor->number, "100") >= 0) {
-                // Convert multiplier (1-9 or 10-19) into words
+            /* If it's ≥ 100, we need to add a multiplier (e.g., "four hundred") */
+            if (compareBigNumbers(floor->number, "100") >= 0)
+	    {
+                /* Convert multiplier (1-9 or 10-19) into words */
                 char multiplierStr[3];  
                 if (multiplier >= 10) { // Handle 10-19 cases in thousands correctly
                     multiplierStr[0] = (multiplier / 10) + '0';
@@ -82,111 +85,80 @@ void convertNumberToWords(char *numStr, BigNumberDictionaryEntry *dict, int dict
 
 int loadDictionary(int fd, BigNumberDictionaryEntry *dict, int maxEntries)
 {
-    //int fd = open(DICT_FILE, O_RDONLY);
-    //if (fd < 0) return -1;  // File open error
+	char	*buffer;
+	char	*ptr;
+	int		bytesRead;
+	int		count;
 
-    char *buffer = (char *)malloc(BUFFER_SIZE);
-    if (!buffer)
-    {
-        close(fd);
-        return -1;
-    }
-
-    int bytesRead = read(fd, buffer, BUFFER_SIZE - 1);
-    if (bytesRead <= 0)
-    {
-        free(buffer);
-        close(fd);
-        return -1;
-    }
-    buffer[bytesRead] = '\0';  // Ensure null-termination
-
-    //close(fd);  // File no longer needed
-
-    int count = 0;
-    char *ptr = buffer;
-    while (*ptr && count < maxEntries)
-    {
-        char *colon = ptr;
-        while (*colon && *colon != ':') colon++;
-        if (*colon == '\0') break;
-
-        *colon = '\0';  // Split number and name
-        char *numberPart = ptr;
-        char *namePart = colon + 1;
-
-        // Find next line
-        char *nextLine = namePart;
-        while (*nextLine && *nextLine != '\n') nextLine++;
-        if (*nextLine == '\n') *nextLine++ = '\0';
-
-        trimSpaces(numberPart);
-        trimSpaces(namePart);
-
-        dict[count].number = (char *)malloc(MAX_DIGITS + 1);
-        dict[count].name = (char *)malloc(MAX_NAME + 1);
-        dict[count].length = str_len(numberPart);
-
-        str_copy(dict[count].number, numberPart, MAX_DIGITS);
-        str_copy(dict[count].name, namePart, MAX_NAME);
-
-        count++;
-        ptr = nextLine;
-    }
-
-    free(buffer);
-    return count;
-}
-
-
-// Function to print dictionary using `write`
-void printDictionary(BigNumberDictionaryEntry *dict, int dictSize)
-{
-
-    for (int i = 0; i < dictSize; i++) {
-        int numLen = str_len(dict[i].number);
-        write(1, dict[i].number, numLen);
-        write(1, " -> ", 4);
-
-        int nameLen = str_len(dict[i].name);
-        write(1, dict[i].name, nameLen);
-        write(1, "\n", 1);
-    }
-}
-
-// Function to free allocated memory
-void freeDictionary(BigNumberDictionaryEntry *dict, int dictSize)
-{
-    for (int i = 0; i < dictSize; i++) {
-        free(dict[i].number);
-        free(dict[i].name);
-    }
-}
-/*
-// Main function
-int	main()
-{
-	BigNumberDictionaryEntry bigNumberDictionary[MAX_ENTRIES];
-
-	int dictSize = loadDictionary(bigNumberDictionary, MAX_ENTRIES);
-	if (dictSize < 0)
+	buffer = (char *)malloc(BUFFER_SIZE);
+	if (!buffer)
+		return (-1);
+	bytesRead = read(fd, buffer, BUFFER_SIZE - 1);
+	if (bytesRead <= 0)
 	{
-		write(2, "Error loading dictionary\n", 25);
-		return (1);
+		free(buffer);
+		return (-1);
 	}
+	buffer[bytesRead] = '\0';
+	count = 0;
+	ptr = buffer;
+	while (*ptr && count < maxEntries)
+	{
+		char *colon = ptr;
+		while (*colon && *colon != ':')
+			colon++;
+		if (*colon == '\0')
+			break;
+		*colon = '\0';
+		char *numberPart = ptr;
+		char *namePart = colon + 1;
+		char *nextLine = namePart;
+		while (*nextLine && *nextLine != '\n')
+			nextLine++;
+		if (*nextLine == '\n')
+			*nextLine++ = '\0';
+		trimSpaces(numberPart);
+		trimSpaces(namePart);
+		dict[count].number = (char *)malloc(MAX_DIGITS + 1);
+		dict[count].name = (char *)malloc(MAX_NAME + 1);
+		dict[count].length = str_len(numberPart);
+		str_copy(dict[count].number, numberPart, MAX_DIGITS);
+		str_copy(dict[count].name, namePart, MAX_NAME);
+		count++;
+		ptr = nextLine;
+	}
+	free(buffer);
+	return (count);
+}
 
-	//printDictionary(bigNumberDictionary, dictSize);
+void	printDictionary(BigNumberDictionaryEntry *dict, int dictSize)
+{
+	int	i;
+	int	numLen;
+	int	nameLen;
 
-	// Example test case
-	ft_putstr("442 -> ");
-	convertNumberToWords("442", bigNumberDictionary, dictSize);
-	ft_putstr("42 -> ");
-	convertNumberToWords("42", bigNumberDictionary, dictSize);
-	ft_putstr("100 -> ");
-	convertNumberToWords("100", bigNumberDictionary, dictSize);
-	ft_putstr("17952 -> ");
-	convertNumberToWords("17952", bigNumberDictionary, dictSize);
+	i = 0;
+	while (i < dictSize)
+	{
+		numLen = str_len(dict[i].number);
+		write(1, dict[i].number, numLen);
+		write(1, " -> ", 4);
+		nameLen = str_len(dict[i].name);
+		write(1, dict[i].name, nameLen);
+		write(1, "\n", 1);
+		i++;
+	}
+}
 
-	freeDictionary(bigNumberDictionary, dictSize);
-	return (0);
-}*/
+void	freeDictionary(BigNumberDictionaryEntry *dict, int dictSize)
+{
+	int	i;
+
+	i = 0;
+	while (i < dictSize)
+	{
+		free(dict[i].number);
+		free(dict[i].name);
+		i++;
+	}
+}
