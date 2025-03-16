@@ -12,12 +12,10 @@
 
 #include <stdio.h>
 
-unsigned long long int	ft_atoi(char *str)
+int	ft_atoi(char *str)
 {
-	unsigned long long int	result;
-	unsigned long long int	sign;
+	int	sign;
 
-	result = 0;
 	sign = 1;
 	while (*str == ' ' || (*str >= 9 && *str <= 13))
 		str++;
@@ -30,18 +28,8 @@ unsigned long long int	ft_atoi(char *str)
 	if (sign < 0)
 		return (-1);
 	while (*str >= '0' && *str <= '9')
-	{
-		result = result * 10 + (*str - '0');
 		str++;
-	}
-	return (result * sign);
+	if (*str == '.')
+		return (-1);
+	return (1);
 }
-/*
-int	main()
-{
-	char str[] = " ---+--+1234ab567";
-	printf("-1 -> %d\n", ft_atoi(str));  // Expected: -1
-
-	char str2[] = "\t 9886+";
-	printf("9886 -> %d\n", ft_atoi(str2));  // Expected: 9886
-}*/
