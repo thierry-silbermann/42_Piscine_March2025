@@ -12,7 +12,6 @@ void    ft_putstr(char *str)
         }
 }
 
-// Function to calculate string length
 int     str_len(const char *str)
 {
         int len;
@@ -23,7 +22,6 @@ int     str_len(const char *str)
         return (len);
 }
 
-// Function to copy strings manually
 void    str_copy(char *dest, const char *src, int maxLen)
 {
         int     i;
@@ -37,21 +35,24 @@ void    str_copy(char *dest, const char *src, int maxLen)
         dest[i] = '\0';
 }
 
-// Function to trim spaces manually (leading & trailing)
 void trimSpaces(char *str)
 {
-    int start = 0, end = str_len(str) - 1;
+	int	start;
+	int	end;
+	int	i;
 
-    // Trim leading spaces
-    while (str[start] == ' ' || str[start] == '\t' || str[start] == '\n') start++;
-
-    // Trim trailing spaces
-    while (end > start && (str[end] == ' ' || str[end] == '\t' || str[end] == '\n')) end--;
-
-    // Shift trimmed string to start of buffer
-    int i;
-    for (i = 0; start <= end; i++, start++) {
-        str[i] = str[start];
-    }
-    str[i] = '\0';  // Null-terminate the trimmed string
+	start = 0;
+	end = str_len(str) - 1;
+	while (str[start] == ' ' || (str[start] >= 9 && str[start] <= 13))
+		start++;
+	while (end > start && (str[end] == ' ' || (str[end] >= 9 && str[end] <= 13)))
+		end--;
+	i = 0;
+	while (start <= end)
+	{
+		str[i] = str[start];
+		i++;
+		start++;
+	}
+	str[i] = '\0';
 }
