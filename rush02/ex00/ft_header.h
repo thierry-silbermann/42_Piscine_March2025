@@ -31,7 +31,7 @@ void			str_copy(char *dest, const char *src, int maxLen);
 void			trimSpaces(char *str);
 int			ft_putstr_error(char *str);
 int			check_input(int argc, char **argv);
-unsigned long long	ft_atoi(char *str);
+int	ft_atoi(char *str);
 int			is_positive_number(char *str);
 int			check_argc_size(int argc);
 

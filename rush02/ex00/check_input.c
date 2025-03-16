@@ -12,21 +12,33 @@
 
 #include "ft_header.h"
 
+int     ft_atoi(char *str)
+{
+        int     sign;
+
+        sign = 1;
+        while (*str == ' ' || (*str >= 9 && *str <= 13))
+                str++;
+        while (*str == '+' || *str == '-')
+        {
+                if (*str == '-')
+                        sign = -sign;
+                str++;
+        }
+        if (sign < 0)
+                return (-1);
+        while (*str >= '0' && *str <= '9')
+                str++;
+        if (*str == '.')
+                return (-1);
+        return (1);
+}
+
 int	ft_putstr_error(char *str)
 {
         while (*str)
                 write(2, str++, 1); 
         write(2, "\n", 1);
-	return (1);
-}
-
-int	is_positive_number(char *str)
-{
-	unsigned long long	nb;
-
-	nb = ft_atoi(str);
-        if (nb < 0)
-		return (0);
 	return (1);
 }
 
@@ -38,12 +50,12 @@ int     check_input(int argc, char **argv)
                 return (ft_putstr_error("Error"));
         if (argc == 2)
         {
-                if (!is_positive_number(argv[1]))
+                if (ft_atoi(argv[1]) != 1)
                         return (ft_putstr_error("Error"));
         }
 	else if (argc == 3)
 	{
-		if (!is_positive_number(argv[2]))
+		if (ft_atoi(argv[2]) != 1)
 			return (ft_putstr_error("Error"));
 	}
         return (0);
