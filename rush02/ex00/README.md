@@ -1,8 +1,13 @@
-Working function that check the input and print the line by line string of the dictionary
+You can use
 
-"cc -Wall -Werror -Wextra main_test.c ft_header.h check_input.c ft_atoi.c dict_processing.c"
+> make
+
+that will compile the projet
 
 
-This struct is working
+And then you can run the program
 
-vim tmp_parse_dict_main2.c
+> ./rush-02 42
+> ./rush-02 -53
+> ./rush-02 567.2
+> ./rush-02 16542

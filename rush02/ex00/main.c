@@ -43,9 +43,8 @@ int	main(int argc, char **argv)
 		return (1);
 	}
 	//printDictionary(bigNumberDictionary, dictSize);
-
 	convertNumberToWords(input_str, bigNumberDictionary, dictSize);
-        // Example test case
+        /* Example test case
         ft_putstr("442 -> ");
         convertNumberToWords("442", bigNumberDictionary, dictSize);
         ft_putstr("42 -> ");
@@ -54,7 +53,7 @@ int	main(int argc, char **argv)
         convertNumberToWords("100", bigNumberDictionary, dictSize);
         ft_putstr("17952 -> ");
         convertNumberToWords("17952", bigNumberDictionary, dictSize);
-
+	*/
         freeDictionary(bigNumberDictionary, dictSize);
 	close(fd);
 	return (0);
