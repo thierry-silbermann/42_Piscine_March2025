@@ -48,7 +48,6 @@ int     check_input(int argc, char **argv)
                         ft_putstr_error("Error");
                         return (1);
                 }
-		printf("argc = 2 / Good formatted number\n");
         }
 	else if (argc == 3)
 	{
@@ -57,7 +56,6 @@ int     check_input(int argc, char **argv)
 			ft_putstr_error("Error");
 			return (1);
 		}
-		printf("argc = 3 / Good formatted number\n");
 	}
         return (0);  // Valid input
 }
