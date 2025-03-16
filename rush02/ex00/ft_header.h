@@ -19,11 +19,17 @@ typedef struct {
         char    *name;    // Dynamically allocated string for word
 } BigNumberDictionaryEntry;
 
-void convertNumberToWords(char *numStr, BigNumberDictionaryEntry *dict, int dictSize);
-int loadDictionary(int fd, BigNumberDictionaryEntry *dict, int maxEntries);
-void printDictionary(BigNumberDictionaryEntry *dict, int dictSize);
-void freeDictionary(BigNumberDictionaryEntry *dict, int dictSize);
-void    ft_putstr(char *str);
+void			convertNumberToWords(char *numStr, BigNumberDictionaryEntry *dict, int dictSize);
+int			loadDictionary(int fd, BigNumberDictionaryEntry *dict, int maxEntries);
+void			printDictionary(BigNumberDictionaryEntry *dict, int dictSize);
+void			freeDictionary(BigNumberDictionaryEntry *dict, int dictSize);
+int			compareBigNumbers(const char *num1, const char *num2);
+BigNumberDictionaryEntry *findFloorNumber(char *str, BigNumberDictionaryEntry *dict, int dictSize);
+int			divideBigNumber(char *numStr, int divisor, int *remainder);
+void			ft_putstr(char *str);
+int			str_len(const char *str);
+void			str_copy(char *dest, const char *src, int maxLen);
+void			trimSpaces(char *str);
 void			ft_putstr_error(char *str);
 int			check_input(int argc, char **argv);
 unsigned long long	ft_atoi(char *str);
