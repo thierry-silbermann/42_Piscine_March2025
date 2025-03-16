@@ -124,7 +124,7 @@ int loadDictionary(int fd, dict_struct *dict, int maxEntries)
 		while (*colon && *colon != ':')
 			colon++;
 		if (*colon == '\0')
-			break;
+			return (-1);
 		*colon = '\0';
 		char *numberPart = ptr;
 		char *namePart = colon + 1;
