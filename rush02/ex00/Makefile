@@ -10,10 +10,10 @@
 #                                                                              #
 # **************************************************************************** #
 
-CC = cc
+CC = gcc
 CFLAGS = -Wall -Wextra -Werror
 NAME = rush-02
-SRC = main.c tmp_parse_dict_main7.c check_input.c ft_atoi.c ft_header.h
+SRC = main.c tmp_parse_dict_main7.c check_input.c ft_atoi.c
 OBJ = $(SRC:.c=.o)
 
 all: $(NAME)
