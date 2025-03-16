@@ -12,7 +12,6 @@
 #define BUFFER_SIZE 1024 // Buffer for file reading
 #define DICT_FILE "numbers.dict"  // Dictionary file name
 
-// Struct to store big numbers and word mappings
 typedef struct {
         char    *number;  // Dynamically allocated string for number
         int             length;    // Actual digit count
@@ -30,7 +29,7 @@ void			ft_putstr(char *str);
 int			str_len(const char *str);
 void			str_copy(char *dest, const char *src, int maxLen);
 void			trimSpaces(char *str);
-void			ft_putstr_error(char *str);
+int			ft_putstr_error(char *str);
 int			check_input(int argc, char **argv);
 unsigned long long	ft_atoi(char *str);
 int			is_positive_number(char *str);
