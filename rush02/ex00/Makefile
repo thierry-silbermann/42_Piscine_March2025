@@ -13,7 +13,7 @@
 CC = gcc
 CFLAGS = -Wall -Wextra -Werror
 NAME = rush-02
-SRC = main.c tmp_parse_dict_main7.c check_input.c ft_atoi.c bignum.c str_lib.c
+SRC = main.c print_number.c check_input.c ft_atoi.c bignum.c str_lib.c
 OBJ = $(SRC:.c=.o)
 
 all: $(NAME)
