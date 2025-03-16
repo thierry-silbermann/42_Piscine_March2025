@@ -24,10 +24,10 @@ int	compareBigNumbers(const char *num1, const char *num2)
 	return (0);
 }
 
-BigNumberDictionaryEntry	*findFloorNumber(char *str, BigNumberDictionaryEntry *dict, int dictSize)
+dict_struct	*findFloorNumber(char *str, dict_struct *dict, int dictSize)
 {
-	BigNumberDictionaryEntry *floor;
-	int				i;
+	dict_struct	*floor;
+	int			i;
 
 	floor = NULL;
 	i = 0;
@@ -67,5 +67,3 @@ int	divideBigNumber(char *numStr, int divisor, int *remainder)
 	*remainder = rem;
 	return (quotient);
 }
-
-

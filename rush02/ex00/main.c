@@ -14,9 +14,9 @@
 
 int	main(int argc, char **argv)
 {
-	int				fd;
-	BigNumberDictionaryEntry	bigNumberDictionary[MAX_ENTRIES];
-	char				*input_str;
+	int			fd;
+	dict_struct		bigNumberDictionary[MAX_ENTRIES];
+	char		*input_str;
 
 	fd = -1;
 	if (check_input(argc, argv) == 1)

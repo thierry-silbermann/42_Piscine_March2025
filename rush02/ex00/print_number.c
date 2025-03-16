@@ -1,6 +1,6 @@
 #include "ft_header.h"
 
-void convertNumberToWords(char *numStr, BigNumberDictionaryEntry *dict, int dictSize)
+void convertNumberToWords(char *numStr, dict_struct *dict, int dictSize)
 {
     if (compareBigNumbers(numStr, "0") == 0)
     {
@@ -12,7 +12,7 @@ void convertNumberToWords(char *numStr, BigNumberDictionaryEntry *dict, int dict
 
     while (compareBigNumbers(numStr, "0") > 0) {
         // Find the closest floor number in the dictionary
-        BigNumberDictionaryEntry *floor = findFloorNumber(numStr, dict, dictSize);
+        dict_struct *floor = findFloorNumber(numStr, dict, dictSize);
         if (!floor) break;
 
         // Compute the multiplier
@@ -42,7 +42,7 @@ void convertNumberToWords(char *numStr, BigNumberDictionaryEntry *dict, int dict
                     multiplierStr[1] = '\0';
                 }
 
-                BigNumberDictionaryEntry *multiplierEntry = findFloorNumber(multiplierStr, dict, dictSize);
+                dict_struct *multiplierEntry = findFloorNumber(multiplierStr, dict, dictSize);
                 if (multiplierEntry) {
                     if (!firstWord) write(1, " ", 1);
                     write(1, multiplierEntry->name, str_len(multiplierEntry->name));
@@ -83,7 +83,7 @@ void convertNumberToWords(char *numStr, BigNumberDictionaryEntry *dict, int dict
 }
 
 
-int loadDictionary(int fd, BigNumberDictionaryEntry *dict, int maxEntries)
+int loadDictionary(int fd, dict_struct *dict, int maxEntries)
 {
 	char	*buffer;
 	char	*ptr;
@@ -131,7 +131,7 @@ int loadDictionary(int fd, BigNumberDictionaryEntry *dict, int maxEntries)
 	return (count);
 }
 
-void	printDictionary(BigNumberDictionaryEntry *dict, int dictSize)
+void	printDictionary(dict_struct *dict, int dictSize)
 {
 	int	i;
 	int	numLen;
@@ -150,7 +150,7 @@ void	printDictionary(BigNumberDictionaryEntry *dict, int dictSize)
 	}
 }
 
-void	freeDictionary(BigNumberDictionaryEntry *dict, int dictSize)
+void	freeDictionary(dict_struct *dict, int dictSize)
 {
 	int	i;
 
