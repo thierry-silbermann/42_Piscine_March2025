@@ -98,8 +98,7 @@ char	**read_map(int fd, int rows)
 
 	map = malloc(rows * sizeof(char *));
 	if (!map)
-		return (NULL);
-    
+		return (NULL);    
 	i = 0;
 	while (i < rows && read(fd, buffer, BUFFER_SIZE) > 0)
 	{
@@ -136,12 +135,18 @@ void	free_map(map_struct *map_info)
 
 int	main(int argc, char **argv)
 {
+	map_struct	*map_info;
+	int			i;
+
 	if (argc == 1)
 	{
 		// Read on the standard input
 		return (0);
 	}
-
+	i = 0;
+	while (i < argc - 1)
+{
+	map_info = (map_struct*) malloc(sizeof(map_struct));
 	int fd = open(argv[1], O_RDONLY);
 	if (fd == -1)
 	{
@@ -164,23 +169,24 @@ int	main(int argc, char **argv)
 		}
 	}
 	first_line[i] = '\0';
-    
-	map_struct map_info;
-	if (!parse_first_line(first_line, &map_info))
+	if (!parse_first_line(first_line, &map_info[i]))
 	{
 		print_error();
 		close(fd);
 		return (1);
 	}
-	printf("%d / %c / %c / %c\n", map_info.size, map_info.empty, map_info.obstacle, map_info.full);  // to delete
+	printf("%d / %c / %c / %c\n", map_info[i].size, map_info[i].empty, map_info[i].obstacle, map_info[i].full);  // to delete
     
-	map_info.map = read_map(fd, map_info.size);
+	map_info[i].map = read_map(fd, map_info[i].size);
 	close(fd);
-	if (!map_info.map || !validate_map(&map_info))
+	if (!map_info[i].map || !validate_map(&map_info[i]))
 	{
 		print_error();
 		return (1);
 	}
-	free_map(&map_info); 
+	free_map(&map_info[i]);
+	//free(map_info);
+	i++;
+} 
 	return (0);
 }
