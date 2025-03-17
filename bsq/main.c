@@ -147,10 +147,11 @@ int	main(int argc, char **argv)
 	while (i < argc - 1)
 {
 	map_info = (map_struct*) malloc(sizeof(map_struct));
-	int fd = open(argv[1], O_RDONLY);
+	int fd = open(argv[i + 1], O_RDONLY);
 	if (fd == -1)
 	{
 		print_error();
+		// Need to free map_info
 		return (1);
 	}
     
@@ -164,6 +165,7 @@ int	main(int argc, char **argv)
 		if (i >= BUFFER_SIZE - 1)
 		{
 			print_error();
+			// Need to free memory map_info
 			close(fd);
 			return (1);
 		}
@@ -172,6 +174,7 @@ int	main(int argc, char **argv)
 	if (!parse_first_line(first_line, &map_info[i]))
 	{
 		print_error();
+		// Free memory map_info
 		close(fd);
 		return (1);
 	}
@@ -182,10 +185,11 @@ int	main(int argc, char **argv)
 	if (!map_info[i].map || !validate_map(&map_info[i]))
 	{
 		print_error();
+		// Need to free memory
 		return (1);
 	}
 	free_map(&map_info[i]);
-	//free(map_info);
+	//free(map_info[i]); Not working
 	i++;
 } 
 	return (0);
