@@ -6,18 +6,31 @@
 
 #define BUFFER_SIZE 30720  // ~30 KB
 
+int	ft_strcmp(char *s1, char *s2)
+{
+	while (*s1 && (*s1 == *s2))
+	{
+		s1++;
+		s2++;
+	}
+	return ((unsigned char)*s1 - (unsigned char)*s2);
+}
+
+
 void	ft_cat(int fd)
 {
-	char buffer[BUFFER_SIZE];
-	ssize_t bytes_read;
+	char	buffer[BUFFER_SIZE];
+	int	 bytes_read;
 
-	while ((bytes_read = read(fd, buffer, BUFFER_SIZE)) > 0)
+	bytes_read = read(fd, buffer, BUFFER_SIZE);
+	while (bytes_read > 0)
 	{
 		if (write(STDOUT_FILENO, buffer, bytes_read) != bytes_read)
 		{
 			perror("Error writing to stdout");
 			return;
 		}
+		bytes_read = read(fd, buffer, BUFFER_SIZE);
 	}
 	if (bytes_read < 0)
 	{
@@ -39,7 +52,7 @@ int main(int argc, char *argv[])
 		i = 1;
 		while (i < argc)
 		{
-			if (strcmp(argv[i], "-") == 0)
+			if (ft_strcmp(argv[i], "-") == 0)
 			{
 				ft_cat(STDIN_FILENO);
 			}
