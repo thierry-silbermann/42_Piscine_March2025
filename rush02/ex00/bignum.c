@@ -6,7 +6,7 @@
 /*   By: tsilberm <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/15 19:52:37 by tsilberm          #+#    #+#             */
-/*   Updated: 2025/03/15 21:03:34 by tsilberm         ###   ########.fr       */
+/*   Updated: 2025/03/16 20:34:21 by smarques         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,16 +21,14 @@ int	compareBigNumbers(const char *num1, const char *num2)
 	i = 0;
 	len1 = str_len(num1);
 	len2 = str_len(num2);
-
 	if (len1 > len2)
 		return 1;
 	if (len1 < len2)
 		return -1;
-
 	while (i < len1)
 	{
 		if (num1[i] > num2[i]) return 1;
-		if (num1[i] < num2[i]) return -1;
+		if (num1[i] < num2[i]) return - 1;
 		i++;
 	}
 	return (0);
