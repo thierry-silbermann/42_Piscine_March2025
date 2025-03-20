@@ -9,7 +9,7 @@ C07 |  60/100 | ex00: OK | ex01: OK | ex02: OK | ex03: KO | ex04: Nothing turned
 C08 |  70/100 | ex00: OK | ex01: OK | ex02: OK | ex03: OK | ex04: OK | ex05: Test 1 KO
 C09 | 100/100 | ex00: OK | ex01: OK | ex02: OK
 C10 |
-C11 |
+C11 | 100/100 | ex00: OK | ex01: OK | ex02: OK | ex03: OK | ex04: OK | ex05: OK | ex06: OK | ex07: OK
 C12 |
 C13 |
 
