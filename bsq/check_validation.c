@@ -6,7 +6,7 @@
 /*   By: tsilberm <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/17 16:41:08 by tsilberm          #+#    #+#             */
-/*   Updated: 2025/03/17 17:40:51 by tsilberm         ###   ########.fr       */
+/*   Updated: 2025/03/18 14:26:06 by tsilberm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,22 @@ int	validate_row(int i, int j, int len, t_map *map_info)
 	return (0);
 }
 
+int	count_rows(char **map, int size)
+{
+	int	i;
+
+	i = 0;
+	if (!map)
+		return (0);
+	while (size)
+	{
+		if (map[i][0])
+			i++;
+		size--;
+	}
+	return (i);
+}
+
 int	validate_map(t_map *map_info)
 {
 	int	i;
@@ -41,6 +57,9 @@ int	validate_map(t_map *map_info)
 	int	len;
 
 	i = 0;
+	if (map_info->row_size != count_rows(map_info->map, map_info->row_size)
+		|| count_rows(map_info->map, map_info->row_size) < 1)
+		return (0);
 	map_info->col_size = ft_strlen(map_info->map[0]);
 	while (i < map_info->row_size)
 	{
@@ -49,11 +68,8 @@ int	validate_map(t_map *map_info)
 			return (0);
 		j = 0;
 		while (j < len)
-		{
-			if (!validate_row(i, j, len, map_info))
+			if (!validate_row(i, j++, len, map_info))
 				return (0);
-			j++;
-		}
 		i++;
 	}
 	if (i != map_info->row_size)
