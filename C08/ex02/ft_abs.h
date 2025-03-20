@@ -1,18 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_putchar.c                                       :+:      :+:    :+:   */
+/*   ft_abs.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tsilberm <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/02/26 15:30:09 by tsilberm          #+#    #+#             */
-/*   Updated: 2025/02/26 15:44:33 by tsilberm         ###   ########.fr       */
+/*   Created: 2025/03/11 16:46:42 by tsilberm          #+#    #+#             */
+/*   Updated: 2025/03/12 15:31:26 by tsilberm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <unistd.h>
-
-void	ft_putchar(char c)
-{
-	write(1, &c, 1);
-}
+#ifndef FT_ABS_H
+# define FT_ABS_H
+# define ABS(Value)  ({ int _val = (Value); if (_val < 0) _val = -_val; _val; })
+#endif

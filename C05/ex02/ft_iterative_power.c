@@ -1,23 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strlen.c                                        :+:      :+:    :+:   */
+/*   ft_iterative_power.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tsilberm <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/02/28 12:12:27 by tsilberm          #+#    #+#             */
-/*   Updated: 2025/02/28 12:13:29 by tsilberm         ###   ########.fr       */
+/*   Created: 2025/03/06 17:07:56 by tsilberm          #+#    #+#             */
+/*   Updated: 2025/03/06 17:49:28 by tsilberm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-int	ft_strlen(char *str)
-{
-	int	i;
+#include <stdio.h>
 
-	i = 0;
-	while (str[i])
+int	ft_iterative_power(int nb, int power)
+{
+	int	result;
+
+	result = 1;
+	if (power < 0)
+		return (0);
+	if (nb == 0 && power == 0)
+		return (1);
+	while (power > 0)
 	{
-		i++;
+		result *= nb;
+		power--;
 	}
-	return (i);
+	return (result);
 }
+/*int	main()
+{
+	printf("3^-4 = 0 -> %d\n", ft_iterative_power(3, -4));
+	printf("0^0 = 0 -> %d\n", ft_iterative_power(0, 0));
+	printf("2^3 = 8 -> %d\n", ft_iterative_power(2, 3));
+}*/

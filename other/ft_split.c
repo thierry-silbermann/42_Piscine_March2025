@@ -6,7 +6,7 @@
 /*   By: tsilberm <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/13 15:29:34 by tsilberm          #+#    #+#             */
-/*   Updated: 2025/03/13 18:00:41 by tsilberm         ###   ########.fr       */
+/*   Updated: 2025/03/19 20:29:49 by tsilberm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,7 +100,7 @@ char	**ft_split(char *str, char *charset)
 	ft_split2(str, charset, result);
 	return (result);
 }
-/*
+
 int main()
 {
 	char str[] = "Hello, world! This is a test.";
@@ -116,4 +116,4 @@ int main()
 	free(result);
 
 	return (0);
-}*/
+}

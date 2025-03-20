@@ -1,3 +1,15 @@
+# **************************************************************************** #
+#                                                                              #
+#                                                         :::      ::::::::    #
+#    Makefile                                           :+:      :+:    :+:    #
+#                                                     +:+ +:+         +:+      #
+#    By: tsilberm <marvin@42.fr>                    +#+  +:+       +#+         #
+#                                                 +#+#+#+#+#+   +#+            #
+#    Created: 2025/03/13 15:28:37 by tsilberm          #+#    #+#              #
+#    Updated: 2025/03/13 17:59:15 by tsilberm         ###   ########.fr        #
+#                                                                              #
+# **************************************************************************** #
+
 # Compiler and flags
 CC       = cc
 CFLAGS   = -Wall -Wextra -Werror
@@ -18,27 +30,21 @@ all: $(NAME)
 
 # Create the library
 $(NAME): $(OBJS)
-	@echo "Creating library $(NAME)..."
 	ar rcs $(NAME) $(OBJS)
-	@echo "Library $(NAME) created successfully!"
 
 # Compile .c files into .o files
 $(SRCDIR)/%.o: $(SRCDIR)/%.c
-	@echo "Compiling $<..."
 	$(CC) $(CFLAGS) -c $< -o $@ -I $(INCDIR)
 
 # Remove object files
 clean:
-	@echo "Removing object files..."
 	rm -f $(OBJS)
 
 # Remove object files and library
 fclean: clean
-	@echo "Removing $(NAME)..."
 	rm -f $(NAME)
 
 # Rebuild the library
 re: fclean all
 
 .PHONY: all clean fclean re
-
